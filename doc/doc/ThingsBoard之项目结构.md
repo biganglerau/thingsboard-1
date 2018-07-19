@@ -18,7 +18,7 @@
 
 **第一种方式**，使用[IDEA Statistic](https://plugins.jetbrains.com/plugin/4509-statistic) 插件，统计整体代码量。
 
-![ThingsBoard代码统计](D:\thingsboard-picture\代码统计.png)
+![ThingsBoard代码统计](https://github.com/sanshengshui/thingsboard/blob/master/doc/pic/%E4%BB%A3%E7%A0%81%E7%BB%9F%E8%AE%A1.png)
 
 我们可以粗略的看到，总的代码量在85787行。这其中还包括单元测试，示例等等代码。所以，不慌。
 
@@ -28,7 +28,7 @@
 
 当然，考虑到准确性，朋友需要手动到 `cd`到每个Maven项目的 `src/main/java` 目录下，以达到排除单元测试的代码量。
 
-![代码量](D:\thingsboard-picture\代码量.png)
+![代码量](https://github.com/sanshengshui/thingsboard/blob/master/doc/pic/%E4%BB%A3%E7%A0%81%E9%87%8F.png)
 
 # 3. 架构设计
 
@@ -38,7 +38,7 @@ ThingsBoard旨在将工作负载分布在多个节点上，而不会出现单点
 
 ------
 
-![高级概述](D:\thingsboard-picture\architecture-in-brief.png)
+![高级概述](https://github.com/sanshengshui/thingsboard/blob/master/doc/pic/architecture-in-brief.png)
 
 ### 设备连接
 
@@ -76,7 +76,7 @@ ThingsBoard包含一组允许管理以下实体的核心服务:
 
 只要服务端API调用，Actor模型就可以从设备高性能并发处理消息。ThingsBoard使用[Akka](https://akka.io/)作为具有以下actor层次结构的actor系统实现。
 
-![Actor](D:\thingsboard-picture\actor-system-hierarchies.png)
+![Actor](https://github.com/sanshengshui/thingsboard/blob/master/doc/pic/actor-system-hierarchies.png)
 
 下面列出了每个actor功能的简要说明:
 
@@ -114,7 +114,7 @@ ThingsBoard采用[一致的散列](https://dzone.com/articles/simple-magic-consi
 
 下图演示了ThingsBoard如何处理对Device D1的RPC请求。在这种情况下，请求到达服务器A，但D1使用MQTT连接到服务器C.在最坏的情况下，D1 Device Actor将位于另一个显然与A或C不匹配的服务器B上。 
 
-![微服务](D:\thingsboard-picture\cluster-mode-rpc-request.png)
+![微服务](https://github.com/sanshengshui/thingsboard/blob/master/doc/pic/cluster-mode-rpc-request.png)
 
 ## 安全
 
