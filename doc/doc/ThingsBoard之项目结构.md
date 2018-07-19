@@ -10,7 +10,7 @@
 
 在拉取thingsboard项目后，我们会发现拆分了**很多**Maven项目。是不是内心一紧，产生了恐惧感?不要方，我们就是继续怼。
 
-![ThingsBoard的项目结构](D:\thingsboard-picture\项目结构.png)
+![ThingsBoard的项目结构](https://github.com/sanshengshui/thingsboard/blob/master/doc/pic/%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png)
 
 # 2. 代码统计
 
