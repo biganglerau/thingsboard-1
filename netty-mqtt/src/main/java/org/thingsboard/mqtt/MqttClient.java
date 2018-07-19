@@ -22,14 +22,19 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.handler.codec.mqtt.MqttQoS;
 import io.netty.util.concurrent.Future;
 
+/**
+ * Mqtt客户端接口类
+ */
 public interface MqttClient {
 
     /**
+     * 连接到特定的特定的ip,缺省端口为1883.
+     * 如果你想去改变端口，可以看{@link #connect(String, int)}
      * Connect to the specified hostname/ip. By default uses port 1883.
      * If you want to change the port number, see {@link #connect(String, int)}
      *
-     * @param host The ip address or host to connect to
-     * @return A future which will be completed when the connection is opened and we received an CONNACK
+     * @param host The ip address or host to connect to 连接的ip地址
+     * @return A future which will be completed when the connection is opened and we received an CONNACK A future将会完成当连接打开，我们接收到CONNACK
      */
     Future<MqttConnectResult> connect(String host);
 
