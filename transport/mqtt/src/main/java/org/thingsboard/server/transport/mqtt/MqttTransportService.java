@@ -48,25 +48,46 @@ public class MqttTransportService {
     private static final String V1 = "v1";
     private static final String DEVICE = "device";
 
+    /**
+     * Bean工厂ApplicationContext
+     */
     @Autowired(required = false)
     private ApplicationContext appContext;
 
+    /**
+     * 会话消息处理接口
+     */
     @Autowired(required = false)
     private SessionMsgProcessor processor;
 
+    /**
+     * 设备接口处理接口类
+     */
     @Autowired(required = false)
     private DeviceService deviceService;
 
     @Autowired(required = false)
+    /**
+     * 设备权限接口类
+     */
     private DeviceAuthService authService;
 
     @Autowired(required = false)
+    /**
+     * 关系接口类
+     */
     private RelationService relationService;
 
     @Autowired(required = false)
+    /**
+     * SSL处理器
+     */
     private MqttSslHandlerProvider sslHandlerProvider;
 
     @Autowired(required = false)
+    /**
+     * TODO
+     */
     private HostRequestsQuotaService quotaService;
 
     @Value("${mqtt.bind_address}")

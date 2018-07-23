@@ -18,6 +18,9 @@ package org.thingsboard.server.common.transport;
 import org.thingsboard.server.common.data.Device;
 import org.thingsboard.server.common.msg.aware.SessionAwareMsg;
 
+/**
+ * 会话消息处理接口
+ */
 public interface SessionMsgProcessor {
 
     void process(SessionAwareMsg msg);
