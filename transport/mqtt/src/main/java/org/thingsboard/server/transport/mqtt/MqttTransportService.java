@@ -90,6 +90,22 @@ public class MqttTransportService {
      */
     private HostRequestsQuotaService quotaService;
 
+    /**
+     * MQTT 服务参数:
+     * 绑定地址:0.0.0.0
+     * 绑定端口:1883
+     * 适配器名:JsonMqttAdaptor
+     * netty内存检测级别: DISABLED
+     * boss线程组线程数: 1
+     * work线程组线程数: 12
+     * 帧内容长度限制: 65536
+     *
+     *
+     * DISABLED: 不进行内存泄露的检测；
+     * SIMPLE: 抽样检测，且只对部分方法调用进行记录，消耗较小，有泄漏时可能会延迟报告，默认级别；
+     * ADVANCED: 抽样检测，记录对象最近几次的调用记录，有泄漏时可能会延迟报告；
+     * PARANOID: 每次创建一个对象时都进行泄露检测，且会记录对象最近的详细调用记录。是比较激进的内存泄露检测级别，消耗最大，建议只在测试时使用。
+     */
     @Value("${mqtt.bind_address}")
     private String host;
     @Value("${mqtt.bind_port}")
@@ -109,27 +125,34 @@ public class MqttTransportService {
     private MqttTransportAdaptor adaptor;
 
     private Channel serverChannel;
-    private EventLoopGroup bossGroup;
-    private EventLoopGroup workerGroup;
+    // 创建两个 EventLoopGroup 对象
+    private EventLoopGroup bossGroup;//创建boss线程组 用于服务端接受客户端的连接
+    private EventLoopGroup workerGroup;//创建worker线程组 用于进行SocketChannel的数据读写
 
     @PostConstruct
     public void init() throws Exception {
+        //设置服务端Netty内存读写泄露检测级别，缺省条件下为:DISABLED
         log.info("Setting resource leak detector level to {}", leakDetectorLevel);
         ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.valueOf(leakDetectorLevel.toUpperCase()));
 
         log.info("Starting MQTT transport...");
         log.info("Lookup MQTT transport adaptor {}", adaptorName);
+        //适配器名加载成Bean类
         this.adaptor = (MqttTransportAdaptor) appContext.getBean(adaptorName);
 
         log.info("Starting MQTT transport server");
+        //设置boss线程组和work线程组的线程数量
         bossGroup = new NioEventLoopGroup(bossGroupThreadCount);
         workerGroup = new NioEventLoopGroup(workerGroupThreadCount);
+        //创建ServerBootstrap对象
         ServerBootstrap b = new ServerBootstrap();
-        b.group(bossGroup, workerGroup)
-                .channel(NioServerSocketChannel.class)
+        b.group(bossGroup, workerGroup)//设置使用的EventLoopGroup
+                .channel(NioServerSocketChannel.class)//设置要被实例化的为NioServerSocketChannel类
                 .childHandler(new MqttTransportServerInitializer(processor, deviceService, authService, relationService,
-                        adaptor, sslHandlerProvider, quotaService, maxPayloadSize));
-
+                        adaptor, sslHandlerProvider, quotaService, maxPayloadSize));//设置连入服务端的Client的SocketChannel的处理器
+        /**
+         * 绑定端口，并同步等待成功，即启动服务器
+         */
         serverChannel = b.bind(host, port).sync().channel();
         log.info("Mqtt transport started!");
     }
@@ -138,8 +161,12 @@ public class MqttTransportService {
     public void shutdown() throws InterruptedException {
         log.info("Stopping MQTT transport!");
         try {
+            /**
+             * 监听服务端关闭，并阻塞等待
+             */
             serverChannel.close().sync();
         } finally {
+            //优雅关闭俩个EventLoopGroup对象
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
