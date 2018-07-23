@@ -40,6 +40,9 @@ public class MqttTransportServerInitializer extends ChannelInitializer<SocketCha
     private final MqttTransportAdaptor adaptor;
     private final MqttSslHandlerProvider sslHandlerProvider;
     private final QuotaService quotaService;
+    /**
+     * 负载内容
+     */
     private final int maxPayloadSize;
 
     public MqttTransportServerInitializer(SessionMsgProcessor processor, DeviceService deviceService, DeviceAuthService authService, RelationService relationService,
@@ -57,19 +60,23 @@ public class MqttTransportServerInitializer extends ChannelInitializer<SocketCha
 
     @Override
     public void initChannel(SocketChannel ch) {
-        ChannelPipeline pipeline = ch.pipeline();
+        ChannelPipeline pipeline = ch.pipeline();//设置ChannelPipeLine
         SslHandler sslHandler = null;
+        //判断SSL处理器处理类是否为空，如果不为空，将SSL处理器加入到ChannelPipeLine
         if (sslHandlerProvider != null) {
             sslHandler = sslHandlerProvider.getSslHandler();
             pipeline.addLast(sslHandler);
         }
+        //添加负载内容的解编码器
         pipeline.addLast("decoder", new MqttDecoder(maxPayloadSize));
         pipeline.addLast("encoder", MqttEncoder.INSTANCE);
 
         MqttTransportHandler handler = new MqttTransportHandler(processor, deviceService, authService, relationService,
                 adaptor, sslHandler, quotaService);
 
+        //添加Mqtt协议处理器
         pipeline.addLast(handler);
+        //异步操作完成时回调
         ch.closeFuture().addListener(handler);
     }
 
