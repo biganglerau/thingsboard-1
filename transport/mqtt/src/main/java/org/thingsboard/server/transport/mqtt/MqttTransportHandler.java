@@ -117,24 +117,33 @@ public class MqttTransportHandler extends ChannelInboundHandlerAdapter implement
         }
 
         deviceSessionCtx.setChannel(ctx);
+        /**
+         * 根据不同MQTT固定头部信息类型，进行不同动作
+         */
         switch (msg.fixedHeader().messageType()) {
+            //连接: C->S
             case CONNECT:
                 processConnect(ctx, (MqttConnectMessage) msg);
                 break;
+                //推送消息: C<->S
             case PUBLISH:
                 processPublish(ctx, (MqttPublishMessage) msg);
                 break;
+                //订阅请求: C->S
             case SUBSCRIBE:
                 processSubscribe(ctx, (MqttSubscribeMessage) msg);
                 break;
+                //取消订阅请求: C->S
             case UNSUBSCRIBE:
                 processUnsubscribe(ctx, (MqttUnsubscribeMessage) msg);
                 break;
+                //PING请求: C->S
             case PINGREQ:
                 if (checkConnected(ctx)) {
                     ctx.writeAndFlush(new MqttMessage(new MqttFixedHeader(PINGRESP, false, AT_MOST_ONCE, false, 0)));
                 }
                 break;
+                //断开连接: C->S
             case DISCONNECT:
                 if (checkConnected(ctx)) {
                     processDisconnect(ctx);
