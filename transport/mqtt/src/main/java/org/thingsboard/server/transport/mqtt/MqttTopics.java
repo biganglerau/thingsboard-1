@@ -20,15 +20,27 @@ package org.thingsboard.server.transport.mqtt;
  */
 public class MqttTopics {
 
+    //基础设备接口主题
     public static final String BASE_DEVICE_API_TOPIC = "v1/devices/me";
+    //客户端应将响应发布到以下主题：
     public static final String DEVICE_RPC_RESPONSE_TOPIC = BASE_DEVICE_API_TOPIC + "/rpc/response/";
     public static final String DEVICE_RPC_RESPONSE_SUB_TOPIC = DEVICE_RPC_RESPONSE_TOPIC + "+";
+    //订阅后，客户端将收到单个命令作为相应主题的PUBLISH消息：
     public static final String DEVICE_RPC_REQUESTS_TOPIC = BASE_DEVICE_API_TOPIC + "/rpc/request/";
+    //要从服务器订阅RPC命令，请将SUBSCRIBE消息发送到以下主题：
     public static final String DEVICE_RPC_REQUESTS_SUB_TOPIC = DEVICE_RPC_REQUESTS_TOPIC + "+";
     public static final String DEVICE_ATTRIBUTES_RESPONSE_TOPIC_PREFIX = BASE_DEVICE_API_TOPIC + "/attributes/response/";
+    //其中$ request_id是整数请求标识符。在发送带有请求的PUBLISH消息之前，客户端需要订阅
     public static final String DEVICE_ATTRIBUTES_RESPONSES_TOPIC = DEVICE_ATTRIBUTES_RESPONSE_TOPIC_PREFIX + "+";
+    /**
+     * 从服务器请求属性值
+     * 为了向ThingsBoard服务器节点请求客户端或共享设备属性，请将PUBLISH消息发送到以下主题：
+     * v1/devices/me/attributes/request/$request_id
+     */
     public static final String DEVICE_ATTRIBUTES_REQUEST_TOPIC_PREFIX = BASE_DEVICE_API_TOPIC + "/attributes/request/";
+    //遥测上传API
     public static final String DEVICE_TELEMETRY_TOPIC = BASE_DEVICE_API_TOPIC + "/telemetry";
+    //将属性更新发布到服务器
     public static final String DEVICE_ATTRIBUTES_TOPIC = BASE_DEVICE_API_TOPIC + "/attributes";
 
     public static final String BASE_GATEWAY_API_TOPIC = "v1/gateway";
