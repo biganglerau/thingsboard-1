@@ -45,6 +45,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * HTTP是一种可用于IoT应用程序的通用网络协议。HTTP协议是基于TCP的，并使用请求-响应模型。
+ * ThingsBoard服务器节点充当支持HTTP和HTTPS协议的HTTP服务器。
+ *
  * @author Andrew Shvayka
  */
 @RestController
@@ -52,6 +55,7 @@ import java.util.Set;
 @Slf4j
 public class DeviceApiController {
 
+    //缺省条件下http连接超时是60000
     @Value("${http.request_timeout}")
     private long defaultTimeout;
 
@@ -64,7 +68,24 @@ public class DeviceApiController {
     @Autowired(required = false)
     private HostRequestsQuotaService quotaService;
 
+    /**
+     * 从服务器请求属性值
+     * --要向ThingsBoard服务器节点请求客户端或共享设备属性，请将GET请求发送到以下URL:
+     * http(s)://host:port/api/v1/$ACCESS_TOKEN/attributes?clientKeys=attribute1,attribute2&sharedKeys=shared1,shared2
+     *
+     * 例如:
+     * request:  curl -v -X GET http://localhost:8080/api/v1/$ACCESS_TOKEN/attributes?clientKeys=attribute1,attribute2&sharedKeys=shared1,shared2
+     * response: {"key1":"value1"}
+     * @param deviceToken
+     * @param clientKeys
+     * @param sharedKeys
+     * @param httpRequest
+     * @return
+     */
     @RequestMapping(value = "/{deviceToken}/attributes", method = RequestMethod.GET, produces = "application/json")
+    /**
+     * DeferredResult<ResponseEntity>都是为了异步生成返回值提供基本的支持
+     */
     public DeferredResult<ResponseEntity> getDeviceAttributes(@PathVariable("deviceToken") String deviceToken,
                                                               @RequestParam(value = "clientKeys", required = false, defaultValue = "") String clientKeys,
                                                               @RequestParam(value = "sharedKeys", required = false, defaultValue = "") String sharedKeys,
@@ -91,6 +112,13 @@ public class DeviceApiController {
         return responseWriter;
     }
 
+    /**
+     * 要将客户端设备属性发布到ThingsBoard服务器节点
+     * @param deviceToken
+     * @param json
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/{deviceToken}/attributes", method = RequestMethod.POST)
     public DeferredResult<ResponseEntity> postDeviceAttributes(@PathVariable("deviceToken") String deviceToken,
                                                                @RequestBody String json, HttpServletRequest request) {
@@ -224,8 +252,17 @@ public class DeviceApiController {
     }
 
     private boolean quotaExceeded(HttpServletRequest request, DeferredResult<ResponseEntity> responseWriter) {
+        /**
+         * 查找请求设备IP是在指标或者是已配的客户，租户下
+         */
         if (quotaService.isQuotaExceeded(request.getRemoteAddr())) {
+            /**
+             * 打印REST 超出指标 断开连接，请求IP
+             */
             log.warn("REST Quota exceeded for [{}] . Disconnect", request.getRemoteAddr());
+            /**
+             * 返回HTTP状态为:509
+             */
             responseWriter.setResult(new ResponseEntity<>(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED));
             return true;
         }

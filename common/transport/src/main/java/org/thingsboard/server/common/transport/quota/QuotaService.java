@@ -20,6 +20,10 @@ package org.thingsboard.server.common.transport.quota;
  * @version 1.0
  */
 public interface QuotaService {
-
+    /**
+     * IP限制
+     * @param key
+     * @return boolean
+     */
     boolean isQuotaExceeded(String key);
 }
