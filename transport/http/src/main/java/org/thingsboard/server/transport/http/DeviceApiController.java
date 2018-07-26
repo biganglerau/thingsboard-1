@@ -139,6 +139,15 @@ public class DeviceApiController {
         return responseWriter;
     }
 
+    /**
+     * 要将遥测数据发布到ThingsBoard服务器节点，请将POST请求发送到以下URL:
+     *  http(s)://host:port/api/v1/$ACCESS_TOKEN/telemetry
+     *  例如： request: {"key1":"value1", "key2":"value2"}
+     * @param deviceToken
+     * @param json
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/{deviceToken}/telemetry", method = RequestMethod.POST)
     public DeferredResult<ResponseEntity> postTelemetry(@PathVariable("deviceToken") String deviceToken,
                                                         @RequestBody String json, HttpServletRequest request) {
@@ -159,6 +168,29 @@ public class DeviceApiController {
         return responseWriter;
     }
 
+    /**
+     * 要从服务器订阅RPC命令，请将带有可选“timeout”请求参数的GET请求发送到以下URL：
+     * request: http(s)://host:port/api/v1/$ACCESS_TOKEN/rpc
+     * 订阅后，如果没有对特定设备的请求，客户端可能会收到rpc请求或超时消息。RPC请求体的示例如下所示：
+     * {
+     *   "id": "1",
+     *   "method": "setGpio",
+     *   "params": {
+     *     "pin": "23",
+     *     "value": 1
+     *   }
+     * }
+     *
+     * id - 请求id，整数请求标识符
+     * method - RPC方法名称，字符串
+     * params - RPC方法参数，自定义json对象
+     *
+     *
+     * @param deviceToken
+     * @param timeout
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/{deviceToken}/rpc", method = RequestMethod.GET, produces = "application/json")
     public DeferredResult<ResponseEntity> subscribeToCommands(@PathVariable("deviceToken") String deviceToken,
                                                               @RequestParam(value = "timeout", required = false, defaultValue = "0") long timeout,
@@ -167,6 +199,15 @@ public class DeviceApiController {
         return subscribe(deviceToken, timeout, new RpcSubscribeMsg(), request);
     }
 
+    /**
+     * 回复报文
+     *  http://host:port/api/v1/$ACCESS_TOKEN/rpc/{$id}
+     * @param deviceToken
+     * @param requestId
+     * @param json
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/{deviceToken}/rpc/{requestId}", method = RequestMethod.POST)
     public DeferredResult<ResponseEntity> replyToCommand(@PathVariable("deviceToken") String deviceToken,
                                                          @PathVariable("requestId") Integer requestId,
@@ -189,6 +230,17 @@ public class DeviceApiController {
         return responseWriter;
     }
 
+    /**
+     * 要将RPC命令发送到服务器，请将POST请求发送到以下URL：
+     * http://host:port/api/v1/$ACCESS_TOKEN/rpc
+     * 请求和响应正文都应该是有效的JSON文档。文档的内容特定于将处理您的请求的规则节点。
+     * request: {"method": "getTime", "params":{}}
+     * response: {"time":"2016 11 21 12:54:44.287"}
+     * @param deviceToken
+     * @param json
+     * @param httpRequest
+     * @return
+     */
     @RequestMapping(value = "/{deviceToken}/rpc", method = RequestMethod.POST)
     public DeferredResult<ResponseEntity> postRpcRequest(@PathVariable("deviceToken") String deviceToken,
                                                          @RequestBody String json, HttpServletRequest httpRequest) {
@@ -212,6 +264,18 @@ public class DeviceApiController {
         return responseWriter;
     }
 
+    /**
+     * 要订阅共享设备属性更改，请将带有可选“超时”请求参数的GET请求发送到以下URL：
+     * 请将带有可选“超时”请求参数的GET请求发送到以下URL：
+     * 一旦服务器端组件（REST API或规则链）之一更改共享属性，客户端将收到以下更新：
+     * 例如:
+     * request: curl -v -X GET http://localhost:8080/api/v1/$ACCESS_TOKEN/attributes/updates?timeout=20000
+     * response: {"key1":"value1"}
+     * @param deviceToken
+     * @param timeout
+     * @param httpRequest
+     * @return
+     */
     @RequestMapping(value = "/{deviceToken}/attributes/updates", method = RequestMethod.GET, produces = "application/json")
     public DeferredResult<ResponseEntity> subscribeToAttributes(@PathVariable("deviceToken") String deviceToken,
                                                                 @RequestParam(value = "timeout", required = false, defaultValue = "0") long timeout,
