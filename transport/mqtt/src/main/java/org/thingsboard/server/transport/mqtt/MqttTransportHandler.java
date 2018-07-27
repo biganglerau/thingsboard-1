@@ -163,12 +163,16 @@ public class MqttTransportHandler extends ChannelInboundHandlerAdapter implement
             case PINGREQ:
                 //判断是否连接
                 if (checkConnected(ctx)) {
-                    //服务器发送PINGRESP数据包以响应PINGREQ数据包
+                    //服务器发送PINGRESP数据包以响应PINGREQ数据包。
                     ctx.writeAndFlush(new MqttMessage(new MqttFixedHeader(PINGRESP, false, AT_MOST_ONCE, false, 0)));
                 }
                 break;
                 //断开连接: C->S
+            /**
+             * DISCONNECT数据包是从客户端发送到服务器的最终控制数据包。它表示客户端正在完全断开连接。
+             */
             case DISCONNECT:
+                //判断是否连接，如果网络连接，则断开连接
                 if (checkConnected(ctx)) {
                     processDisconnect(ctx);
                 }
