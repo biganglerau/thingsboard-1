@@ -127,11 +127,18 @@ public class MqttTransportHandler extends ChannelInboundHandlerAdapter implement
                 processConnect(ctx, (MqttConnectMessage) msg);
                 break;
                 //推送消息: C<->S
+
             case PUBLISH:
                 //PUBLISH控制包从客户端发送到服务器或从服务器发送到客户端以传输消息
                 processPublish(ctx, (MqttPublishMessage) msg);
                 break;
                 //订阅请求: C->S
+            /**
+             * SUBSCRIBE数据包从客户端发送到服务器以创建一个或多个订阅。每个订阅
+             * 都注册客户对一个或多个主题的兴趣。服务器将PUBLISH数据包发送到客户端，
+             * 以便将发布的应用程序消息转发到与这些订阅匹配的主题。SUBSCRIBE数据包还
+             * 指定(对于每个订阅)服务器可以将应用程序消息发送到客户端的最大QoS。
+             */
             case SUBSCRIBE:
                 processSubscribe(ctx, (MqttSubscribeMessage) msg);
                 break;
@@ -233,10 +240,13 @@ public class MqttTransportHandler extends ChannelInboundHandlerAdapter implement
         }
     }
 
+    //处理来自客户端的订阅请求
     private void processSubscribe(ChannelHandlerContext ctx, MqttSubscribeMessage mqttMsg) {
+       //判断是否连接
         if (!checkConnected(ctx)) {
             return;
         }
+        //打印变量头中的数据包标识符
         log.trace("[{}] Processing subscription [{}]!", sessionId, mqttMsg.variableHeader().messageId());
         List<Integer> grantedQoSList = new ArrayList<>();
         for (MqttTopicSubscription subscription : mqttMsg.payload().topicSubscriptions()) {

@@ -5,7 +5,7 @@ tags: MQTT
 categories: MQTT
 ---
 
-![MQTT背景图](/home/james/workspace/thingsboard/doc/pic/MQTT_banner.jpg)
+![MQTT背景图](D:\IdeaProjects\thingsboard-master\doc\pic\MQTT_banner.jpg)
 
 
 
