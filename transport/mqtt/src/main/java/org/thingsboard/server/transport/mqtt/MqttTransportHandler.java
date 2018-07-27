@@ -151,8 +151,19 @@ public class MqttTransportHandler extends ChannelInboundHandlerAdapter implement
                 processUnsubscribe(ctx, (MqttUnsubscribeMessage) msg);
                 break;
                 //PING请求: C->S
+            /**
+             * PINGREQ -- PING请求
+             * PINGREQ数据包从客户端发送到服务器。它可以用于:
+             * 1. 在没有任何其他控制数据包从客户端发送到服务器的情况下，向服务器指示客户端处于活动状态。
+             * 2. 请求服务器响应以确认它处于活动状态。
+             * 3. 联系网络以指示网络连接处于活动状态。
+             *
+             * -- 此数据包用于Keep Alive处理
+             */
             case PINGREQ:
+                //判断是否连接
                 if (checkConnected(ctx)) {
+                    //服务器发送PINGRESP数据包以响应PINGREQ数据包
                     ctx.writeAndFlush(new MqttMessage(new MqttFixedHeader(PINGRESP, false, AT_MOST_ONCE, false, 0)));
                 }
                 break;
