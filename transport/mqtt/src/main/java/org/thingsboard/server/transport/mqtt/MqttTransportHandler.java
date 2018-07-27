@@ -123,10 +123,12 @@ public class MqttTransportHandler extends ChannelInboundHandlerAdapter implement
         switch (msg.fixedHeader().messageType()) {
             //连接: C->S
             case CONNECT:
+                //客户端请求与服务器的连接的报文
                 processConnect(ctx, (MqttConnectMessage) msg);
                 break;
                 //推送消息: C<->S
             case PUBLISH:
+                //PUBLISH控制包从客户端发送到服务器或从服务器发送到客户端以传输消息
                 processPublish(ctx, (MqttPublishMessage) msg);
                 break;
                 //订阅请求: C->S
@@ -154,21 +156,25 @@ public class MqttTransportHandler extends ChannelInboundHandlerAdapter implement
         }
 
     }
-
+    //处理PUBLISH消息
     private void processPublish(ChannelHandlerContext ctx, MqttPublishMessage mqttMsg) {
+        //检查是否连接
         if (!checkConnected(ctx)) {
             return;
         }
+        //获取PUBLISH消息有效负载中的主题名称，包标志符
         String topicName = mqttMsg.variableHeader().topicName();
         int msgId = mqttMsg.variableHeader().messageId();
+        //打印相关信息
         log.trace("[{}] Processing publish msg [{}][{}]!", sessionId, topicName, msgId);
-
+        //如果主题是以网关主题为开头，则处理推送消息给网关
         if (topicName.startsWith(BASE_GATEWAY_API_TOPIC)) {
             if (gatewaySessionCtx != null) {
                 gatewaySessionCtx.setChannel(ctx);
                 handleMqttPublishMsg(topicName, msgId, mqttMsg);
             }
         } else {
+            //推送消息给设备
             processDevicePublish(ctx, mqttMsg, topicName, msgId);
         }
     }
@@ -295,7 +301,9 @@ public class MqttTransportHandler extends ChannelInboundHandlerAdapter implement
         return new MqttMessage(mqttFixedHeader, mqttMessageIdVariableHeader);
     }
 
+    //处理连接操作
     private void processConnect(ChannelHandlerContext ctx, MqttConnectMessage msg) {
+        //打印来自客户端的连接信息，包括会话ID,有效负载的客户端标识符
         log.info("[{}] Processing connect msg for client: {}!", sessionId, msg.payload().clientIdentifier());
         X509Certificate cert;
         if (sslHandler != null && (cert = getX509Certificate()) != null) {
@@ -404,6 +412,7 @@ public class MqttTransportHandler extends ChannelInboundHandlerAdapter implement
         return new MqttPubAckMessage(mqttFixedHeader, mqttMsgIdVariableHeader);
     }
 
+    //检查是否连接
     private boolean checkConnected(ChannelHandlerContext ctx) {
         if (connected) {
             return true;
