@@ -143,6 +143,10 @@ public class MqttTransportHandler extends ChannelInboundHandlerAdapter implement
                 processSubscribe(ctx, (MqttSubscribeMessage) msg);
                 break;
                 //取消订阅请求: C->S
+            /**
+             * 取消订阅--取消订阅主题
+             * 客户端向服务器发送UNSUBSCRIBE数据包，以取消订阅
+             */
             case UNSUBSCRIBE:
                 processUnsubscribe(ctx, (MqttUnsubscribeMessage) msg);
                 break;
@@ -281,10 +285,13 @@ public class MqttTransportHandler extends ChannelInboundHandlerAdapter implement
         ctx.writeAndFlush(createSubAckMessage(mqttMsg.variableHeader().messageId(), grantedQoSList));
     }
 
+    //处理来自客户端的取消订阅请求
     private void processUnsubscribe(ChannelHandlerContext ctx, MqttUnsubscribeMessage mqttMsg) {
+        //判断是否连接
         if (!checkConnected(ctx)) {
             return;
         }
+        //打印消息变量头中的数据包标识符
         log.trace("[{}] Processing subscription [{}]!", sessionId, mqttMsg.variableHeader().messageId());
         for (String topicName : mqttMsg.payload().topics()) {
             try {
