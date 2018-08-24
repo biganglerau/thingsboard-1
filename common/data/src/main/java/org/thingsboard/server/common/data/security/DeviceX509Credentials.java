@@ -17,6 +17,7 @@ package org.thingsboard.server.common.data.security;
 
 /**
  * @author Valerii Sosliuk
+ * 设备X.509数字证书实现类，实现DeviceCredentialsFilter接口
  */
 public class DeviceX509Credentials implements DeviceCredentialsFilter {
 

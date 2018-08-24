@@ -20,15 +20,33 @@ import org.thingsboard.server.common.data.BaseData;
 import org.thingsboard.server.common.data.id.UserCredentialsId;
 import org.thingsboard.server.common.data.id.UserId;
 
+/**
+ * 用户认证
+ */
 @EqualsAndHashCode(callSuper = true)
 public class UserCredentials extends BaseData<UserCredentialsId> {
 
     private static final long serialVersionUID = -2108436378880529163L;
-
+    /**
+     * 用户编号
+     */
     private UserId userId;
+    /**
+     * 是否可用
+     */
     private boolean enabled;
+    /**
+     * 密码
+     */
     private String password;
+
+    /**
+     * 活动的Token
+     */
     private String activateToken;
+    /**
+     * 重置Token
+     */
     private String resetToken;
     
     public UserCredentials() {

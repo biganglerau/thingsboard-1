@@ -17,11 +17,19 @@ package org.thingsboard.server.common.data.security;
 
 /**
  * TODO: This is a temporary name. DeviceCredentialsId is resereved in dao layer
+ * 设备证书过滤器接口类
  */
 public interface DeviceCredentialsFilter {
-
+    /**
+     * 获得证书编号
+     * @return
+     */
     String getCredentialsId();
 
+    /**
+     * 获得证书类型
+     * @return
+     */
     DeviceCredentialsType getCredentialsType();
 
 }

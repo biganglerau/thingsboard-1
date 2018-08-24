@@ -15,9 +15,18 @@
  */
 package org.thingsboard.server.common.data.security;
 
+/**
+ * 设备证书类型
+ */
 public enum DeviceCredentialsType {
 
+    /**
+     * ACCESS_TOKEN 访问令牌
+     */
     ACCESS_TOKEN,
+    /**
+     * X.509数字证书
+     */
     X509_CERTIFICATE
 
 }

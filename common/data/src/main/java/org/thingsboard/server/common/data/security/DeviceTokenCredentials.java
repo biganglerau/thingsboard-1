@@ -15,6 +15,9 @@
  */
 package org.thingsboard.server.common.data.security;
 
+/**
+ * 设备ACCESS_TOKEN 访问令牌实现类，实现DeviceCredentialsFilter接口
+ */
 public class DeviceTokenCredentials implements DeviceCredentialsFilter {
 
     private final String token;

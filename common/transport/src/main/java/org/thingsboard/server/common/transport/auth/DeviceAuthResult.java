@@ -18,9 +18,17 @@ package org.thingsboard.server.common.transport.auth;
 import org.thingsboard.server.common.data.id.DeviceId;
 
 public class DeviceAuthResult {
-
+    /**
+     * 是否成功
+     */
     private final boolean success;
+    /**
+     * 设备编号
+     */
     private final DeviceId deviceId;
+    /**
+     * 错误消息
+     */
     private final String errorMsg;
 
     public static DeviceAuthResult of(DeviceId deviceId) {

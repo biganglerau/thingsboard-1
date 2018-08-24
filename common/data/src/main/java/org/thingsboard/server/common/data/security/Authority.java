@@ -15,11 +15,25 @@
  */
 package org.thingsboard.server.common.data.security;
 
+/**
+ * 权限枚举类型
+ */
 public enum Authority {
-    
+    /**
+     * 系统管理员
+     */
     SYS_ADMIN(0),
+    /**
+     * 租户
+     */
     TENANT_ADMIN(1),
+    /**
+     * 客户
+     */
     CUSTOMER_USER(2),
+    /**
+     * 短时间的权限
+     */
     REFRESH_TOKEN(10);
 
     private int code;

@@ -20,14 +20,28 @@ import org.thingsboard.server.common.data.BaseData;
 import org.thingsboard.server.common.data.id.DeviceCredentialsId;
 import org.thingsboard.server.common.data.id.DeviceId;
 
+/**
+ * 设备认证
+ */
 @EqualsAndHashCode(callSuper = true)
 public class DeviceCredentials extends BaseData<DeviceCredentialsId> implements DeviceCredentialsFilter {
 
     private static final long serialVersionUID = -7869261127032877765L;
-    
+    /**
+     * 设备编号
+     */
     private DeviceId deviceId;
+    /**
+     * 设备认证类型
+     */
     private DeviceCredentialsType credentialsType;
+    /**
+     * 认证编号
+     */
     private String credentialsId;
+    /**
+     * 认证值
+     */
     private String credentialsValue;
     
     public DeviceCredentials() {
