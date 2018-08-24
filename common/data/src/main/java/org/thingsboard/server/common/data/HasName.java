@@ -15,6 +15,9 @@
  */
 package org.thingsboard.server.common.data;
 
+/**
+ *有名称接口
+ */
 public interface HasName {
 
     String getName();

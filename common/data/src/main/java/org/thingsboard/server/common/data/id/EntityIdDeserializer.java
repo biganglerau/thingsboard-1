@@ -26,6 +26,7 @@ import java.io.IOException;
 
 /**
  * Created by ashvayka on 11.05.17.
+ * 实体编号反序列化类
  */
 public class EntityIdDeserializer extends JsonDeserializer<EntityId> {
 

@@ -17,6 +17,9 @@ package org.thingsboard.server.common.data.id;
 
 import java.io.Serializable;
 
+/**
+ * 会话编号
+ */
 public interface SessionId extends Serializable {
 
     String toUidStr();

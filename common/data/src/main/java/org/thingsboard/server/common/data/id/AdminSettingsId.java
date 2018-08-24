@@ -20,6 +20,9 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * 超级管理员设置表编号
+ */
 public class AdminSettingsId extends UUIDBased {
 
     @JsonCreator

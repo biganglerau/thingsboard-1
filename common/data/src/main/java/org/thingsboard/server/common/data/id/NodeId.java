@@ -17,6 +17,9 @@ package org.thingsboard.server.common.data.id;
 
 import java.util.UUID;
 
+/**
+ * 节点编号
+ */
 public class NodeId extends UUIDBased {
 
 	public NodeId(UUID id){

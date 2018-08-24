@@ -22,6 +22,9 @@ import org.thingsboard.server.common.data.EntityType;
 
 import java.util.UUID;
 
+/**
+ * 资产编号
+ */
 public class AssetId extends UUIDBased implements EntityId {
 
     private static final long serialVersionUID = 1L;

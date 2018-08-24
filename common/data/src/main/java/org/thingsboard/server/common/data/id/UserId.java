@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.thingsboard.server.common.data.EntityType;
 
+/**
+ * 用户表编号
+ */
 public class UserId extends UUIDBased implements EntityId {
 
     @JsonCreator

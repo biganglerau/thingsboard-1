@@ -17,6 +17,9 @@ package org.thingsboard.server.common.data;
 
 import org.thingsboard.server.common.data.id.TenantId;
 
+/**
+ * 有租户编号接口
+ */
 public interface HasTenantId {
 
     TenantId getTenantId();

@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
+/**
+ * 组件描述表编号
+ */
 public final class ComponentDescriptorId extends UUIDBased {
 
     private static final long serialVersionUID = 1L;

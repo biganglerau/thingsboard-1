@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
+/**
+ * 事件表编号
+ */
 public class EventId extends UUIDBased {
 
     private static final long serialVersionUID = 1L;

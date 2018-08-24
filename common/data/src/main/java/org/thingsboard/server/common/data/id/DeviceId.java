@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.thingsboard.server.common.data.EntityType;
 
+/**
+ * 设备表编号
+ */
 public class DeviceId extends UUIDBased implements EntityId {
 
     private static final long serialVersionUID = 1L;

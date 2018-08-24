@@ -18,6 +18,9 @@ package org.thingsboard.server.common.data.id;
 import java.io.Serializable;
 import java.util.UUID;
 
+/**
+ * UUID基础类
+ */
 public abstract class UUIDBased implements Serializable {
 
     private static final long serialVersionUID = 1L;

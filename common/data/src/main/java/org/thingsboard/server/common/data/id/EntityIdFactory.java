@@ -22,6 +22,7 @@ import java.util.UUID;
 
 /**
  * Created by ashvayka on 25.04.17.
+ * 实体编号工厂
  */
 public class EntityIdFactory {
 

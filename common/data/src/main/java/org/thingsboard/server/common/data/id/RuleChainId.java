@@ -22,6 +22,9 @@ import org.thingsboard.server.common.data.EntityType;
 
 import java.util.UUID;
 
+/**
+ * 规则引擎表编号
+ */
 public class RuleChainId extends UUIDBased implements EntityId {
 
     @JsonCreator

@@ -17,6 +17,9 @@ package org.thingsboard.server.common.data;
 
 import org.thingsboard.server.common.data.id.CustomerId;
 
+/**
+ * 有客户编号接口
+ */
 public interface HasCustomerId {
 
     CustomerId getCustomerId();

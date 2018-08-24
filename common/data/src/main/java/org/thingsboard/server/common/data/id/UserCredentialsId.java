@@ -17,6 +17,9 @@ package org.thingsboard.server.common.data.id;
 
 import java.util.UUID;
 
+/**
+ * 用户认证表编号
+ */
 public class UserCredentialsId extends UUIDBased {
 
     public UserCredentialsId(UUID id){

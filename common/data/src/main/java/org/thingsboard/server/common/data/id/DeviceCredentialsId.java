@@ -20,6 +20,9 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * 设备认证表编号
+ */
 public class DeviceCredentialsId extends UUIDBased {
 
     @JsonCreator

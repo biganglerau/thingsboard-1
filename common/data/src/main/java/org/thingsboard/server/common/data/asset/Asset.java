@@ -22,14 +22,28 @@ import org.thingsboard.server.common.data.id.AssetId;
 import org.thingsboard.server.common.data.id.CustomerId;
 import org.thingsboard.server.common.data.id.TenantId;
 
+/**
+ * 资产类
+ */
 @EqualsAndHashCode(callSuper = true)
 public class Asset extends SearchTextBasedWithAdditionalInfo<AssetId> implements HasName, HasTenantId, HasCustomerId {
 
     private static final long serialVersionUID = 2807343040519543363L;
-
+    /**
+     * 租户编号
+     */
     private TenantId tenantId;
+    /**
+     * 客户编号
+     */
     private CustomerId customerId;
+    /**
+     * 名称
+     */
     private String name;
+    /**
+     * 类型
+     */
     private String type;
 
     public Asset() {

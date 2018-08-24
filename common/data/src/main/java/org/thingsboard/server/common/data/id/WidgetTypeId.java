@@ -20,6 +20,9 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * 组件类型表编号
+ */
 public final class WidgetTypeId extends UUIDBased {
 
     private static final long serialVersionUID = 1L;

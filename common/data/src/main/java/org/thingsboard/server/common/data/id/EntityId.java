@@ -30,7 +30,9 @@ import java.util.UUID;
 @JsonDeserialize(using = EntityIdDeserializer.class)
 @JsonSerialize(using = EntityIdSerializer.class)
 public interface EntityId extends Serializable { //NOSONAR, the constant is closely related to EntityId
-
+    /**
+     * UUID是通用唯一识别码的缩写，其目的，是让分布式系统中的所有元素，都能有唯一的辨别信息
+     */
     UUID NULL_UUID = UUID.fromString("13814000-1dd2-11b2-8080-808080808080");
 
     UUID getId();

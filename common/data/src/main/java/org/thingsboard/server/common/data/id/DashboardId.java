@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.thingsboard.server.common.data.EntityType;
 
+/**
+ * 仪表盘表编号
+ */
 public class DashboardId extends UUIDBased implements EntityId {
 
     @JsonCreator

@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
+/**
+ * 审计表编号
+ */
 public class AuditLogId extends UUIDBased {
 
     private static final long serialVersionUID = 1L;
