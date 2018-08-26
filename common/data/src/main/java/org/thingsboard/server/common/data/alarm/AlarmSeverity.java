@@ -19,7 +19,9 @@ package org.thingsboard.server.common.data.alarm;
  * Created by ashvayka on 11.05.17.
  */
 public enum AlarmSeverity {
-
+    /**
+     * 警报级别 严重;重要;次要的;警告;模糊的;
+     */
     CRITICAL, MAJOR, MINOR, WARNING, INDETERMINATE;
 
 }

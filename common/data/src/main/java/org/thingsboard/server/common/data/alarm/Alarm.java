@@ -34,16 +34,37 @@ import org.thingsboard.server.common.data.id.TenantId;
 @AllArgsConstructor
 public class Alarm extends BaseData<AlarmId> implements HasName, HasTenantId {
 
+    /**
+     * 租户编号
+     */
     private TenantId tenantId;
+    /**
+     * 类型
+     */
     private String type;
+    /**
+     * 起因
+     */
     private EntityId originator;
+    /**
+     * 警报级别
+     */
     private AlarmSeverity severity;
+    /**
+     * 报警状态
+     */
     private AlarmStatus status;
+    /**
+     * 时间戳
+     */
     private long startTs;
     private long endTs;
     private long ackTs;
     private long clearTs;
     private transient JsonNode details;
+    /**
+     * 是否扩大
+     */
     private boolean propagate;
 
     public Alarm() {

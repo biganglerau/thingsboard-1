@@ -24,6 +24,9 @@ import org.thingsboard.server.common.data.id.UUIDBased;
 
 import java.util.UUID;
 
+/**
+ * 警报表编号
+ */
 public class AlarmId extends UUIDBased implements EntityId {
 
     private static final long serialVersionUID = 1L;
