@@ -21,6 +21,9 @@ import org.thingsboard.server.common.data.BaseData;
 import org.thingsboard.server.common.data.id.TenantId;
 import org.thingsboard.server.common.data.id.WidgetTypeId;
 
+/**
+ * 组件类型表
+ */
 @EqualsAndHashCode(callSuper = true)
 public class WidgetType extends BaseData<WidgetTypeId> {
 

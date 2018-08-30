@@ -22,7 +22,13 @@ package org.thingsboard.server.common.data.rule;
  *
  */
 public enum Scope {
-
+    /**
+     * (1) 超级管理员
+     * (2) 租户
+     * (3) 顾客
+     * (4) 设备
+     * (5) 规则
+     */
     SYSTEM, TENANT, CUSTOMER, DEVICE, RULE;
 
 }
