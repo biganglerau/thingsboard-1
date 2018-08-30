@@ -26,17 +26,34 @@ import org.thingsboard.server.common.data.id.RuleChainId;
 import org.thingsboard.server.common.data.id.RuleNodeId;
 import org.thingsboard.server.common.data.id.TenantId;
 
+/**
+ * 规则节点表实体类
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Slf4j
 public class RuleNode extends SearchTextBasedWithAdditionalInfo<RuleNodeId> implements HasName {
 
     private static final long serialVersionUID = -5656679015121235465L;
-
+    /**
+     * 规则链编号
+     */
     private RuleChainId ruleChainId;
+    /**
+     * 类型
+     */
     private String type;
+    /**
+     * 名称
+     */
     private String name;
+    /**
+     * 是否DEBUG
+     */
     private boolean debugMode;
+    /**
+     * 配置
+     */
     private transient JsonNode configuration;
     @JsonIgnore
     private byte[] configurationBytes;

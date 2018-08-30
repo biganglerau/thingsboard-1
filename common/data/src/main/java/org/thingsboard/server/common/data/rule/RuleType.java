@@ -22,7 +22,9 @@ package org.thingsboard.server.common.data.rule;
  *
  */
 public enum RuleType {
-    
+    /**
+     * 规则类型
+     */
     SYSTEM, USER;
     
 }
