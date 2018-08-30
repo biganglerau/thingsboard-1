@@ -21,6 +21,7 @@ import java.io.Serializable;
 
 /**
  * @author Andrew Shvayka
+ * 来自设备的RPC请求类和参数
  */
 @Data
 public class ToDeviceRpcRequestBody implements Serializable {

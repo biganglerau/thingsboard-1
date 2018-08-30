@@ -19,6 +19,7 @@ import lombok.Data;
 
 /**
  * @author Andrew Shvayka
+ * RPC请求类名 请求数据 超时时间戳
  */
 @Data
 public class RpcRequest {
