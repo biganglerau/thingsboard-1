@@ -21,6 +21,7 @@ import org.thingsboard.server.common.data.id.RuleChainId;
 
 /**
  * Created by ashvayka on 21.03.18.
+ * 规则链连接信息
  */
 @Data
 public class RuleChainConnectionInfo {

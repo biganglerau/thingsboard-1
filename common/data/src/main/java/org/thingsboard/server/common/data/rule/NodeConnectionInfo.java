@@ -19,6 +19,7 @@ import lombok.Data;
 
 /**
  * Created by ashvayka on 21.03.18.
+ * 规则节点连接信息
  */
 @Data
 public class NodeConnectionInfo {

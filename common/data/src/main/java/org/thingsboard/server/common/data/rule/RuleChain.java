@@ -27,6 +27,9 @@ import org.thingsboard.server.common.data.id.RuleChainId;
 import org.thingsboard.server.common.data.id.RuleNodeId;
 import org.thingsboard.server.common.data.id.TenantId;
 
+/**
+ * 规则链表实体类
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Slf4j
@@ -34,11 +37,29 @@ public class RuleChain extends SearchTextBasedWithAdditionalInfo<RuleChainId> im
 
     private static final long serialVersionUID = -5656679015121935465L;
 
+    /**
+     * 租户编号
+     */
     private TenantId tenantId;
+    /**
+     * 名称
+     */
     private String name;
+    /**
+     * 第一个规则节点编号
+     */
     private RuleNodeId firstRuleNodeId;
+    /**
+     * 是否根节点
+     */
     private boolean root;
+    /**
+     * 是否debug模式
+     */
     private boolean debugMode;
+    /**
+     * 配置
+     */
     private transient JsonNode configuration;
     @JsonIgnore
     private byte[] configurationBytes;
